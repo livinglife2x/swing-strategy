@@ -33,7 +33,7 @@ while True:
         
         # Check for 15-minute scheduled executions (9:00 to 15:30)
         if (9 <= now.hour < 15 or (now.hour == 15 and now.minute <= 30)):
-            if now.minute in [0, 15, 30, 45] and now.second == 2 :
+            if now.minute in [15, 45] and now.second == 2 :
                 if last_scheduled_execution is None or (now - last_scheduled_execution).total_seconds() > 5:
                     #my_task()
                     if now.hour==9 and now.minute==15:
@@ -52,7 +52,11 @@ while True:
                                     with open('trading_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {data[3].iloc[1]} \n')
                     
-                    elif now.hour==9 and now.minute==30:
+                    
+                    
+                    #build for 9:45 logic also
+                    elif now.hour==9 and now.minute==45:
+
                         start_date=str(now.date()+timedelta(days = -10))
                         end_date = str(now.date())
                         intraday_data = get_intraday_data(instrument)
@@ -67,9 +71,11 @@ while True:
                                 if hist_data[2].iloc[0]<intraday_data[2].iloc[0] and hist_data[2].iloc[0]<hist_data[2].iloc[1]:
                                     with open('trading_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {hist_data[3].iloc[0]} \n')
-                    
-                    #build for 9:45 logic also
-                    elif now.hour==9 and now.minute==45:
+
+
+                        
+
+                    elif now.hour==10 and now.minute==15:
                         start_date=str(now.date()+timedelta(days = -10))
                         end_date = str(now.date())
                         intraday_data = get_intraday_data(instrument)
@@ -84,6 +90,9 @@ while True:
                                 if intraday_data[3].iloc[1]<hist_data[3].iloc[0] and intraday_data[3].iloc[1]<intraday_data[3].iloc[0]:
                                     with open('trading_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {intraday_data[3].iloc[1]} \n')
+                    
+            
+
 
                     else:
                         intraday_data = get_intraday_data(instrument)
