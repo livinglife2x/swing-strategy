@@ -29,7 +29,7 @@ def my_task():
 
 
 def get_historical_data(instrument,start_date,end_date):
-    url = f'https://api.upstox.com/v3/historical-candle/{instrument}/minutes/15/{end_date}/{start_date}'
+    url = f'https://api.upstox.com/v3/historical-candle/{instrument}/minutes/30/{end_date}/{start_date}'
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -50,7 +50,7 @@ def get_historical_data(instrument,start_date,end_date):
         return None
     
 def get_intraday_data(instrument):
-    url = f'https://api.upstox.com/v3/historical-candle/intraday/{instrument}/minutes/15'
+    url = f'https://api.upstox.com/v3/historical-candle/intraday/{instrument}/minutes/30'
     headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
