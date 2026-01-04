@@ -31,12 +31,13 @@ while True:
                 last_frequent_execution = now
         """
         
-        # Check for 15-minute scheduled executions (9:00 to 15:30)
+        # Check for 30-minute scheduled executions (9:00 to 15:30)
         if (9 <= now.hour < 15 or (now.hour == 15 and now.minute <= 30)):
             if now.minute in [15, 45] and now.second == 2 :
                 if last_scheduled_execution is None or (now - last_scheduled_execution).total_seconds() > 5:
                     #my_task()
                     if now.hour==9 and now.minute==15:
+                        print('checking s/r at 9:15')
                         start_date=str(now.date()+timedelta(days = -10))
                         end_date = str(now.date())
                         data = get_historical_data(instrument,start_date,end_date)
@@ -56,7 +57,7 @@ while True:
                     
                     #build for 9:45 logic also
                     elif now.hour==9 and now.minute==45:
-
+                        print('checking s/r at 9:45')
                         start_date=str(now.date()+timedelta(days = -10))
                         end_date = str(now.date())
                         intraday_data = get_intraday_data(instrument)
@@ -76,6 +77,7 @@ while True:
                         
 
                     elif now.hour==10 and now.minute==15:
+                        print('checking s/r at 10:15')
                         start_date=str(now.date()+timedelta(days = -10))
                         end_date = str(now.date())
                         intraday_data = get_intraday_data(instrument)
@@ -95,6 +97,7 @@ while True:
 
 
                     else:
+                        print(f'checking s/r at {now}')
                         intraday_data = get_intraday_data(instrument)
                         if intraday_data:
                             if intraday_data[2].iloc[1]>intraday_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[2]:
