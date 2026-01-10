@@ -70,15 +70,20 @@ def get_intraday_data(instrument):
 
 
 def get_ltp(symbol,access_token):
-    url = f'https://api.upstox.com/v2/market-quote/ltp?instrument_key={symbol}'
+    url = f'https://api.upstox.com/v3/market-quote/ltp?instrument_key={symbol}'
     headers = {
+    'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Authorization': f'Bearer {access_token}'
-    }
+        }
 
     response = requests.get(url, headers=headers)
-    for i in response.json()['data']:
-        return response.json()['data'][i]['last_price']
+    try:
+        for i in response.json()['data']:
+            return response.json()['data'][i]['last_price']
+    except:
+        print('Error from get_ltp')
+        return None
 
 
 

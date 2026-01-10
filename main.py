@@ -180,7 +180,7 @@ while True:
                 if position==1:
                     intraday_data = get_intraday_data(instrument)
                     ltp = get_ltp(instrument,access_token)
-                    if ltp<=intraday_data[3].iloc[0]:
+                    if ltp and ltp<=intraday_data[3].iloc[0]:
                         
                         exit_price = ltp
                         exit_time=now
@@ -193,7 +193,7 @@ while True:
                 if position==-1:
                     intraday_data = get_intraday_data(instrument)
                     ltp = get_ltp(instrument,access_token)
-                    if ltp>=intraday_data[2].iloc[0]:
+                    if ltp and  ltp>=intraday_data[2].iloc[0]:
                         exit_price=ltp
                         exit_time=now
                         exit_reason = "greater then prv high"
