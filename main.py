@@ -13,7 +13,7 @@ last_frequent_execution = None
 last_scheduled_execution = None
 india = pytz.timezone('Asia/Calcutta')
 
-instrument = "NSE_EQ|INE160A01022"
+instrument = "NSE_EQ|INE257A01026"
 
 
 
@@ -63,6 +63,8 @@ while True:
                         intraday_data = get_intraday_data(instrument)
                         hist_data = get_historical_data(instrument,start_date,end_date)
                         if intraday_data and hist_data:
+                            intraday_data=pd.DataFrame(intraday_data['data']['candles'])
+                            hist_data = pd.DataFrame(hist_data['data']['candles'])
                             if hist_data[2].iloc[0]>intraday_data[2].iloc[0] and hist_data[2].iloc[0]>hist_data[2].iloc[1]:
                                 if hist_data[3].iloc[0]>intraday_data[3].iloc[0] and hist_data[3].iloc[0]>hist_data[3].iloc[1]:
                                     with open('trading_log.txt', 'a') as f:
@@ -83,15 +85,17 @@ while True:
                         intraday_data = get_intraday_data(instrument)
                         hist_data = get_historical_data(instrument,start_date,end_date)
                         if intraday_data and hist_data:
+                            intraday_data=pd.DataFrame(intraday_data['data']['candles'])
+                            hist_data = pd.DataFrame(hist_data['data']['candles'])
                             if intraday_data[2].iloc[1]>hist_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[0]:
                                 if intraday_data[3].iloc[1]>hist_data[3].iloc[0] and intraday_data[3].iloc[1]>intraday_data[3].iloc[0]:
                                     with open('trading_log.txt', 'a') as f:
-                                        f.write(str(now)+f' - Resistance detected previous day at {intraday_data[2].iloc[1]} \n')
+                                        f.write(str(now)+f' - Resistance detected  at {intraday_data[2].iloc[1]} \n')
                             
                             if intraday_data[2].iloc[1]<hist_data[2].iloc[0] and intraday_data[2].iloc[1]<intraday_data[2].iloc[0]:
                                 if intraday_data[3].iloc[1]<hist_data[3].iloc[0] and intraday_data[3].iloc[1]<intraday_data[3].iloc[0]:
                                     with open('trading_log.txt', 'a') as f:
-                                        f.write(str(now)+f' - Support detected previous day at {intraday_data[3].iloc[1]} \n')
+                                        f.write(str(now)+f' - Support detected   at {intraday_data[3].iloc[1]} \n')
                     
             
 
@@ -100,15 +104,17 @@ while True:
                         print(f'checking s/r at {now}')
                         intraday_data = get_intraday_data(instrument)
                         if intraday_data:
+                            intraday_data=pd.DataFrame(intraday_data['data']['candles'])
+                
                             if intraday_data[2].iloc[1]>intraday_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[2]:
                                 if intraday_data[3].iloc[1]>intraday_data[3].iloc[0] and intraday_data[3].iloc[1]>intraday_data[3].iloc[2]:
                                     with open('trading_log.txt', 'a') as f:
-                                            f.write(str(now)+f' - Resistance detected previous day at {intraday_data[2].iloc[1]} \n')
+                                            f.write(str(now)+f' - Resistance detected at {intraday_data[2].iloc[1]} \n')
 
                             if intraday_data[2].iloc[1]<intraday_data[2].iloc[0] and intraday_data[2].iloc[1]<intraday_data[2].iloc[2]:
                                 if intraday_data[3].iloc[1]<intraday_data[3].iloc[0] and intraday_data[3].iloc[1]<intraday_data[3].iloc[2]:
                                     with open('trading_log.txt', 'a') as f:
-                                        f.write(str(now)+f' - Support detected previous day at {intraday_data[3].iloc[1]} \n')
+                                        f.write(str(now)+f' - Support detected at {intraday_data[3].iloc[1]} \n')
 
 
                             

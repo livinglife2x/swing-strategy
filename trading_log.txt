@@ -1,0 +1,6 @@
+2026-01-06 12:45:02.003489+05:30 - Resistance detected previous day at 302.7 
+2026-01-06 15:15:02.004934+05:30 - Support detected previous day at 294.7 
+2026-01-07 11:45:02.014188+05:30 - Resistance detected at 305.9 
+2026-01-07 15:15:02.000665+05:30 - Support detected at 302.05 
+2026-01-09 13:45:02.003302+05:30 - Resistance detected at 280.0 
+2026-01-09 15:15:02.004250+05:30 - Support detected at 273.45 
