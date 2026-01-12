@@ -13,7 +13,8 @@ last_frequent_execution = None
 last_scheduled_execution = None
 india = pytz.timezone('Asia/Calcutta')
 
-instrument = "NSE_EQ|INE160A01022"
+instrument = "NSE_EQ|INE257A01026"
+
 position=0
 support = config.get('support')
 resistance = config.get('resistance')
