@@ -43,13 +43,13 @@ while True:
                             data = pd.DataFrame(data['data']['candles'])
                             if data[2].iloc[1]>data[2].iloc[2] and data[2].iloc[1]>data[2].iloc[0]:
                                 if data[3].iloc[1]>data[3].iloc[2] and data[3].iloc[1]>data[3].iloc[0]:
-                                    with open('sr_log.txt', 'a') as f:
+                                    with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Resistance detected previous day at {data[2].iloc[1]} \n')
                                     resistance=data[2].iloc[1]
                                     last_resistance_time=now
                             if data[2].iloc[1]<data[2].iloc[2] and data[2].iloc[1]<data[2].iloc[0]:
                                 if data[3].iloc[1]<data[3].iloc[2] and data[3].iloc[1]<data[3].iloc[0]:
-                                    with open('sr_log.txt', 'a') as f:
+                                    with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {data[3].iloc[1]} \n')
                                     support = data[3].iloc[1]
                                     last_support_time = now
@@ -66,13 +66,13 @@ while True:
                         if intraday_data and hist_data:
                             if hist_data[2].iloc[0]>intraday_data[2].iloc[0] and hist_data[2].iloc[0]>hist_data[2].iloc[1]:
                                 if hist_data[3].iloc[0]>intraday_data[3].iloc[0] and hist_data[3].iloc[0]>hist_data[3].iloc[1]:
-                                    with open('sr_log.txt', 'a') as f:
+                                    with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Resistance detected previous day at {hist_data[2].iloc[0]} \n')
                                     resistance = hist_data[2].iloc[0]
                                     last_resistance_time=now
                             if hist_data[3].iloc[0]<intraday_data[3].iloc[0] and hist_data[3].iloc[0]<hist_data[3].iloc[1]:
                                 if hist_data[2].iloc[0]<intraday_data[2].iloc[0] and hist_data[2].iloc[0]<hist_data[2].iloc[1]:
-                                    with open('sr_log.txt', 'a') as f:
+                                    with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {hist_data[3].iloc[0]} \n')
                                     support = hist_data[3].iloc[0]
                                     last_support_time = now
@@ -87,13 +87,13 @@ while True:
                         if intraday_data and hist_data:
                             if intraday_data[2].iloc[1]>hist_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[0]:
                                 if intraday_data[3].iloc[1]>hist_data[3].iloc[0] and intraday_data[3].iloc[1]>intraday_data[3].iloc[0]:
-                                    with open('sr_log.txt', 'a') as f:
+                                    with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Resistance detected previous day at {intraday_data[2].iloc[1]} \n')
                                     resistance = intraday_data[2].iloc[1]
                                     last_resistance_time=now
                             if intraday_data[2].iloc[1]<hist_data[2].iloc[0] and intraday_data[2].iloc[1]<intraday_data[2].iloc[0]:
                                 if intraday_data[3].iloc[1]<hist_data[3].iloc[0] and intraday_data[3].iloc[1]<intraday_data[3].iloc[0]:
-                                    with open('sr_log.txt', 'a') as f:
+                                    with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {intraday_data[3].iloc[1]} \n')
                                     support = intraday_data[3].iloc[1]
                                     last_support_time = now
@@ -105,13 +105,13 @@ while True:
                         if intraday_data:
                             if intraday_data[2].iloc[1]>intraday_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[2]:
                                 if intraday_data[3].iloc[1]>intraday_data[3].iloc[0] and intraday_data[3].iloc[1]>intraday_data[3].iloc[2]:
-                                    with open('sr_log.txt', 'a') as f:
+                                    with open('trade_log.txt', 'a') as f:
                                             f.write(str(now)+f' - Resistance detected previous day at {intraday_data[2].iloc[1]} \n')
                                     resistance = intraday_data[2].iloc[1]
                                     last_resistance_time=now
                             if intraday_data[2].iloc[1]<intraday_data[2].iloc[0] and intraday_data[2].iloc[1]<intraday_data[2].iloc[2]:
                                 if intraday_data[3].iloc[1]<intraday_data[3].iloc[0] and intraday_data[3].iloc[1]<intraday_data[3].iloc[2]:
-                                    with open('sr_log.txt', 'a') as f:
+                                    with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {intraday_data[3].iloc[1]} \n')
                                     support = intraday_data[3].iloc[1]
                                     last_support_time = now
@@ -145,7 +145,7 @@ while True:
                                 entry_price = ltp
                                 entry_time=now
                                 entry_reason = f"Closed below support {support}"
-                    
+                                last_short_support_time=last_support_time
                 
 
                     last_scheduled_execution = now
