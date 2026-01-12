@@ -64,6 +64,8 @@ while True:
                         intraday_data = get_intraday_data(instrument)
                         hist_data = get_historical_data(instrument,start_date,end_date)
                         if intraday_data and hist_data:
+                            intraday_data = pd.DataFrame(intraday_data['data']['candles'])
+                            hist_data = pd.DataFrame(hist_data['data']['candles'])
                             if hist_data[2].iloc[0]>intraday_data[2].iloc[0] and hist_data[2].iloc[0]>hist_data[2].iloc[1]:
                                 if hist_data[3].iloc[0]>intraday_data[3].iloc[0] and hist_data[3].iloc[0]>hist_data[3].iloc[1]:
                                     with open('trade_log.txt', 'a') as f:
@@ -85,6 +87,8 @@ while True:
                         intraday_data = get_intraday_data(instrument)
                         hist_data = get_historical_data(instrument,start_date,end_date)
                         if intraday_data and hist_data:
+                            intraday_data = pd.DataFrame(intraday_data['data']['candles'])
+                            hist_data = pd.DataFrame(hist_data['data']['candles'])
                             if intraday_data[2].iloc[1]>hist_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[0]:
                                 if intraday_data[3].iloc[1]>hist_data[3].iloc[0] and intraday_data[3].iloc[1]>intraday_data[3].iloc[0]:
                                     with open('trade_log.txt', 'a') as f:
@@ -103,6 +107,7 @@ while True:
                     else:
                         intraday_data = get_intraday_data(instrument)
                         if intraday_data:
+                            intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             if intraday_data[2].iloc[1]>intraday_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[2]:
                                 if intraday_data[3].iloc[1]>intraday_data[3].iloc[0] and intraday_data[3].iloc[1]>intraday_data[3].iloc[2]:
                                     with open('trade_log.txt', 'a') as f:
@@ -129,6 +134,7 @@ while True:
                     if position==0 and resistance is not None and last_resistance_time is not None:
                         intraday_data = get_intraday_data(instrument)
                         if intraday_data:
+                            intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             if intraday_data[4].iloc[0]>resistance and (last_long_resistance_time is None or last_resistance_time>last_long_resistance_time):
                                 position=1
                                 ltp = get_ltp(instrument,access_token)
@@ -139,6 +145,7 @@ while True:
                     if position==0 and support is not None and last_support_time is not None:
                         intraday_data = get_intraday_data(instrument)
                         if intraday_data:
+                            intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             if intraday_data[4].iloc[0]<support and (last_short_support_time is None or last_support_time>last_short_support_time):
                                 position=-1
                                 ltp = get_ltp(instrument,access_token)
@@ -179,29 +186,33 @@ while True:
                 #my_task()
                 if position==1:
                     intraday_data = get_intraday_data(instrument)
-                    ltp = get_ltp(instrument,access_token)
-                    if ltp and ltp<=intraday_data[3].iloc[0]:
-                        
-                        exit_price = ltp
-                        exit_time=now
-                        exit_reason = "less than prv low"
-                        profit = exit_price-entry_price
-                        profit_perc = (100*(exit_price-entry_price))/entry_price
-                        with open('trade_log.txt', 'a') as f:
-                            f.write(f'{entry_time},{entry_price},{entry_reason},{exit_time},{exit_price},{exit_reason},{profit},{profit_perc},{position} \n')
-                        position=0
+                    if intraday_data:
+                        intraday_data = pd.DataFrame(intraday_data['data']['candles'])
+                        ltp = get_ltp(instrument,access_token)
+                        if ltp and ltp<=intraday_data[3].iloc[0]:
+                            
+                            exit_price = ltp
+                            exit_time=now
+                            exit_reason = "less than prv low"
+                            profit = exit_price-entry_price
+                            profit_perc = (100*(exit_price-entry_price))/entry_price
+                            with open('trade_log.txt', 'a') as f:
+                                f.write(f'{entry_time},{entry_price},{entry_reason},{exit_time},{exit_price},{exit_reason},{profit},{profit_perc},{position} \n')
+                            position=0
                 if position==-1:
                     intraday_data = get_intraday_data(instrument)
-                    ltp = get_ltp(instrument,access_token)
-                    if ltp and  ltp>=intraday_data[2].iloc[0]:
-                        exit_price=ltp
-                        exit_time=now
-                        exit_reason = "greater then prv high"
-                        profit = entry_price-exit_price
-                        profit_perc = (100*(entry_price-exit_price))/entry_price
-                        with open('trade_log.txt', 'a') as f:
-                            f.write(f'{entry_time},{entry_price},{entry_reason},{exit_time},{exit_price},{exit_reason},{profit},{profit_perc},{position} \n')
-                        position=0
+                    if intraday_data:
+                        intraday_data = pd.DataFrame(intraday_data['data']['candles'])
+                        ltp = get_ltp(instrument,access_token)
+                        if ltp and  ltp>=intraday_data[2].iloc[0]:
+                            exit_price=ltp
+                            exit_time=now
+                            exit_reason = "greater then prv high"
+                            profit = entry_price-exit_price
+                            profit_perc = (100*(entry_price-exit_price))/entry_price
+                            with open('trade_log.txt', 'a') as f:
+                                f.write(f'{entry_time},{entry_price},{entry_reason},{exit_time},{exit_price},{exit_reason},{profit},{profit_perc},{position} \n')
+                            position=0
 
 
                 last_frequent_execution = now
