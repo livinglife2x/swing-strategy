@@ -134,7 +134,9 @@ while True:
 
                     if position==0 and resistance is not None and last_resistance_time is not None:
                         intraday_data = get_intraday_data(instrument)
-                        if intraday_data:
+                        if intraday_data and intraday_data['data']['candles']:
+                            print("intraday data from checking long position")
+                            print(intraday_data)
                             intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             if intraday_data[4].iloc[0]>resistance and (last_long_resistance_time is None or last_resistance_time>last_long_resistance_time):
                                 position=1
@@ -145,7 +147,9 @@ while True:
                                 last_long_resistance_time = last_resistance_time
                     if position==0 and support is not None and last_support_time is not None:
                         intraday_data = get_intraday_data(instrument)
-                        if intraday_data:
+                        if intraday_data and intraday_data['data']['candles']:
+                            print("intraday data from checking short position")
+                            print(intraday_data)
                             intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             if intraday_data[4].iloc[0]<support and (last_short_support_time is None or last_support_time>last_short_support_time):
                                 position=-1
