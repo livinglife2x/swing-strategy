@@ -204,6 +204,7 @@ while True:
                             with open('trade_log.txt', 'a') as f:
                                 f.write(f'{entry_time},{entry_price},{entry_reason},{exit_time},{exit_price},{exit_reason},{profit},{profit_perc},{position} \n')
                                 f.write(f'ltp is {ltp} and prv low is {intraday_data[3].iloc[0]}')
+                                print(f"{now} intraday data for long exit")
                                 print(intraday_data)
                             position=0
                 if position==-1:
@@ -220,6 +221,7 @@ while True:
                             with open('trade_log.txt', 'a') as f:
                                 f.write(f'{entry_time},{entry_price},{entry_reason},{exit_time},{exit_price},{exit_reason},{profit},{profit_perc},{position} \n')
                                 f.write(f'ltp is {ltp} and prv high is {intraday_data[2].iloc[0]}')
+                                print(f"{now} intraday data for short exit")
                                 print(intraday_data)
                             position=0
 
