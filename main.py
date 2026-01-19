@@ -22,7 +22,8 @@ last_resistance_time = config.get('last_resistance_time')
 last_support_time = config.get('last_support_time')
 last_long_resistance_time = config.get('last_long_resistance_time')
 last_short_support_time = config.get('last_short_support_time')
-
+now = datetime.now(india)
+print(f"log for day {now}")
 
 
 while True:
@@ -67,14 +68,14 @@ while True:
                         if intraday_data and hist_data:
                             intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             hist_data = pd.DataFrame(hist_data['data']['candles'])
-                            if hist_data[2].iloc[0]>intraday_data[2].iloc[0] and hist_data[2].iloc[0]>hist_data[2].iloc[1]:
-                                if hist_data[3].iloc[0]>intraday_data[3].iloc[0] and hist_data[3].iloc[0]>hist_data[3].iloc[1]:
+                            if hist_data[2].iloc[0]>intraday_data[2].iloc[1] and hist_data[2].iloc[0]>hist_data[2].iloc[1]:
+                                if hist_data[3].iloc[0]>intraday_data[3].iloc[1] and hist_data[3].iloc[0]>hist_data[3].iloc[1]:
                                     with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Resistance detected previous day at {hist_data[2].iloc[0]} \n')
                                     resistance = hist_data[2].iloc[0]
                                     last_resistance_time=now
-                            if hist_data[3].iloc[0]<intraday_data[3].iloc[0] and hist_data[3].iloc[0]<hist_data[3].iloc[1]:
-                                if hist_data[2].iloc[0]<intraday_data[2].iloc[0] and hist_data[2].iloc[0]<hist_data[2].iloc[1]:
+                            if hist_data[3].iloc[0]<intraday_data[3].iloc[1] and hist_data[3].iloc[0]<hist_data[3].iloc[1]:
+                                if hist_data[2].iloc[0]<intraday_data[2].iloc[1] and hist_data[2].iloc[0]<hist_data[2].iloc[1]:
                                     with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {hist_data[3].iloc[0]} \n')
                                     support = hist_data[3].iloc[0]
@@ -90,14 +91,14 @@ while True:
                         if intraday_data and hist_data:
                             intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             hist_data = pd.DataFrame(hist_data['data']['candles'])
-                            if intraday_data[2].iloc[1]>hist_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[0]:
-                                if intraday_data[3].iloc[1]>hist_data[3].iloc[0] and intraday_data[3].iloc[1]>intraday_data[3].iloc[0]:
+                            if intraday_data[2].iloc[2]>hist_data[2].iloc[0] and intraday_data[2].iloc[2]>intraday_data[2].iloc[1]:
+                                if intraday_data[3].iloc[2]>hist_data[3].iloc[0] and intraday_data[3].iloc[2]>intraday_data[3].iloc[1]:
                                     with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Resistance detected previous day at {intraday_data[2].iloc[1]} \n')
                                     resistance = intraday_data[2].iloc[1]
                                     last_resistance_time=now
-                            if intraday_data[2].iloc[1]<hist_data[2].iloc[0] and intraday_data[2].iloc[1]<intraday_data[2].iloc[0]:
-                                if intraday_data[3].iloc[1]<hist_data[3].iloc[0] and intraday_data[3].iloc[1]<intraday_data[3].iloc[0]:
+                            if intraday_data[2].iloc[2]<hist_data[2].iloc[0] and intraday_data[2].iloc[2]<intraday_data[2].iloc[1]:
+                                if intraday_data[3].iloc[2]<hist_data[3].iloc[0] and intraday_data[3].iloc[2]<intraday_data[3].iloc[1]:
                                     with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {intraday_data[3].iloc[1]} \n')
                                     support = intraday_data[3].iloc[1]
@@ -109,14 +110,18 @@ while True:
                         intraday_data = get_intraday_data(instrument)
                         if intraday_data:
                             intraday_data = pd.DataFrame(intraday_data['data']['candles'])
-                            if intraday_data[2].iloc[1]>intraday_data[2].iloc[0] and intraday_data[2].iloc[1]>intraday_data[2].iloc[2]:
-                                if intraday_data[3].iloc[1]>intraday_data[3].iloc[0] and intraday_data[3].iloc[1]>intraday_data[3].iloc[2]:
+                            if intraday_data[2].iloc[2]>intraday_data[2].iloc[1] and intraday_data[2].iloc[2]>intraday_data[2].iloc[3]:
+                                if intraday_data[3].iloc[2]>intraday_data[3].iloc[1] and intraday_data[3].iloc[1]>intraday_data[3].iloc[3]:
+                                    print(f" checking intraday other resistance at {now}")
+                                    print(intraday_data)
                                     with open('trade_log.txt', 'a') as f:
                                             f.write(str(now)+f' - Resistance detected previous day at {intraday_data[2].iloc[1]} \n')
                                     resistance = intraday_data[2].iloc[1]
                                     last_resistance_time=now
-                            if intraday_data[2].iloc[1]<intraday_data[2].iloc[0] and intraday_data[2].iloc[1]<intraday_data[2].iloc[2]:
-                                if intraday_data[3].iloc[1]<intraday_data[3].iloc[0] and intraday_data[3].iloc[1]<intraday_data[3].iloc[2]:
+                            if intraday_data[2].iloc[2]<intraday_data[2].iloc[1] and intraday_data[2].iloc[2]<intraday_data[2].iloc[3]:
+                                if intraday_data[3].iloc[2]<intraday_data[3].iloc[1] and intraday_data[3].iloc[2]<intraday_data[3].iloc[3]:
+                                    print(f" checking intraday other support at {now}")
+                                    print(intraday_data)
                                     with open('trade_log.txt', 'a') as f:
                                         f.write(str(now)+f' - Support detected previous day at {intraday_data[3].iloc[1]} \n')
                                     support = intraday_data[3].iloc[1]
@@ -194,7 +199,7 @@ while True:
                     if intraday_data:
                         intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                         ltp = get_ltp(instrument,access_token)
-                        if ltp and ltp<=intraday_data[3].iloc[0]:
+                        if ltp and ltp<=intraday_data[3].iloc[1]:
                             
                             exit_price = ltp
                             exit_time=now
@@ -212,7 +217,7 @@ while True:
                     if intraday_data:
                         intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                         ltp = get_ltp(instrument,access_token)
-                        if ltp and  ltp>=intraday_data[2].iloc[0]:
+                        if ltp and  ltp>=intraday_data[2].iloc[1]:
                             exit_price=ltp
                             exit_time=now
                             exit_reason = "greater then prv high"
