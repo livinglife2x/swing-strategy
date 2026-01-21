@@ -7,3 +7,4 @@
 2026-01-14 09:15:02.010966+05:30 - Resistance detected previous day at 266.3 
 2026-01-16 09:15:02.011496+05:30 - Resistance detected previous day at 268.6 
 2026-01-19 09:15:02.001396+05:30 - Resistance detected previous day at 266.9 
+2026-01-20 09:15:02.000616+05:30 - Resistance detected previous day at 265.2 

@@ -66,6 +66,8 @@ while True:
                         intraday_data = get_intraday_data(instrument)
                         hist_data = get_historical_data(instrument,start_date,end_date)
                         if intraday_data and hist_data:
+                            print(f"checking what 9:45 candle is giving at {now}")
+                            print(intraday_data)
                             intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             hist_data = pd.DataFrame(hist_data['data']['candles'])
                             if hist_data[2].iloc[0]>intraday_data[2].iloc[1] and hist_data[2].iloc[0]>hist_data[2].iloc[1]:
@@ -89,6 +91,8 @@ while True:
                         intraday_data = get_intraday_data(instrument)
                         hist_data = get_historical_data(instrument,start_date,end_date)
                         if intraday_data and hist_data:
+                            print(f"checking what 10:15 candle is giving at {now}")
+                            print(intraday_data)
                             intraday_data = pd.DataFrame(intraday_data['data']['candles'])
                             hist_data = pd.DataFrame(hist_data['data']['candles'])
                             if intraday_data[2].iloc[2]>hist_data[2].iloc[0] and intraday_data[2].iloc[2]>intraday_data[2].iloc[1]:
