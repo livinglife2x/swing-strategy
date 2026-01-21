@@ -24,12 +24,18 @@ last_long_resistance_time = config.get('last_long_resistance_time')
 last_short_support_time = config.get('last_short_support_time')
 now = datetime.now(india)
 print(f"log for day {now}")
+test_ran=0
 
 
 while True:
     now = datetime.now(india)
     if now.time()>=datetime.strptime("9:15:00", '%H:%M:%S').time() and now.time()<datetime.strptime("15:29:00", '%H:%M:%S').time():
-    
+        if now.hour==10 and now.minute==17 and test_ran==0:
+            test_ran = 1
+            intraday_data = get_intraday_data(instrument)
+            intraday_data = pd.DataFrame(intraday_data['data']['candles'])
+            print("checking how intraday data coming after a certain time")
+            print(intraday_data)
         
         
         # Check for 30-minute scheduled executions (9:00 to 15:30)
